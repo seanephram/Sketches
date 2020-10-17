@@ -1,11 +1,11 @@
-BPM#include "FastLED.h"
+#include "FastLED.h"
 #define NUM_LEDS 3
 #define DATA_PIN 8
 #define BRIGHTNESS 50
 
 CRGB leds[NUM_LEDS];
 
-uint8_t bpm = 90;
+uint8_t bpm = 120;
 
 int fadeAmount = 10;  // Set the amount to fade I usually do 5, 10, 15, 20, 25 etc even up to 255.
 int brightness = 20;
@@ -17,8 +17,6 @@ void setup()
 
 void loop()
 
-{
-//  EVERY_N_MILLISECONDS( 50 )
   {
     for (int i = 0; i < NUM_LEDS; i++ )
     {
@@ -33,5 +31,4 @@ void loop()
       {
         fadeAmount = -fadeAmount ;
       }
-}
 }
