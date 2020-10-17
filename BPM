@@ -1,34 +1,37 @@
-#include "FastLED.h"
-#define NUM_LEDS 3 
+BPM#include "FastLED.h"
+#define NUM_LEDS 3
 #define DATA_PIN 8
+#define BRIGHTNESS 50
 
 CRGB leds[NUM_LEDS];
 
-uint8_t BPM = 120;
-uint8_t n = beatsin8(BPM, 128, 255);  // (bpm, low, high)
+uint8_t bpm = 90;
 
 int fadeAmount = 10;  // Set the amount to fade I usually do 5, 10, 15, 20, 25 etc even up to 255.
 int brightness = 20;
 
 void setup()
 {
-   FastLED.addLeds<NEOPIXEL, DATA_PIN>(leds, NUM_LEDS);
-   LEDS.setBrightness(50);
+  FastLED.addLeds<NEOPIXEL, DATA_PIN>(leds, NUM_LEDS);
 }
 
 void loop()
+
 {
-   for(int i = 0; i < NUM_LEDS; i++ )
-   {
-   leds[i].setRGB(0,255,255);  
-   leds[i].fadeLightBy(brightness);
-  }
-  FastLED.show();
-  brightness = brightness + fadeAmount;
-  // reverse the direction of fading at the ends of the fade:
-  if(brightness == 0 || brightness == 255)
+//  EVERY_N_MILLISECONDS( 50 )
   {
-    fadeAmount = -fadeAmount ;
-  }  
-  delay(20); // fade speed
+    for (int i = 0; i < NUM_LEDS; i++ )
+    {
+      leds[i].setRGB(0, 255, 255);
+      brightness = beatsin8(bpm, 0, 255);
+      leds[i].fadeLightBy(brightness);
+    }
+    FastLED.show();
+    brightness = brightness + fadeAmount;
+      // reverse the direction of fading at the ends of the fade:
+    if (brightness == 0 || brightness == 255)
+      {
+        fadeAmount = -fadeAmount ;
+      }
+}
 }
