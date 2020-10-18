@@ -1,9 +1,15 @@
 #include "FastLED.h"
-#define NUM_LEDS 3
-#define DATA_PIN 8
+#define LED_TYPE WS2812B
+
+#define NUM_LEDS_A 3
+#define NUM_LEDS_B 3
+#define DATA_PIN_A 8
+#define DATA_PIN_B 9
+
 #define BRIGHTNESS 50
 
-CRGB leds[NUM_LEDS];
+CRGB ledsA[NUM_LEDS_A];
+CRGB ledsB[NUM_LEDS_B];
 
 uint8_t bpm = 120;
 
@@ -12,17 +18,18 @@ int brightness = 20;
 
 void setup()
 {
-  FastLED.addLeds<NEOPIXEL, DATA_PIN>(leds, NUM_LEDS);
+  FastLED.addLeds<NEOPIXEL, DATA_PIN_A>(ledsA, NUM_LEDS_A);
+  FastLED.addLeds<NEOPIXEL, DATA_PIN_B>(ledsB, NUM_LEDS_B);
 }
 
 void loop()
 
   {
-    for (int i = 0; i < NUM_LEDS; i++ )
+    for (int i = 0; i < NUM_LEDS_A; i++ )
     {
-      leds[i].setRGB(0, 255, 255);
+      ledsA[i].setRGB(0, 255, 255);
       brightness = beatsin8(bpm, 0, 255);
-      leds[i].fadeLightBy(brightness);
+      ledsA[i].fadeLightBy(brightness);
     }
     FastLED.show();
     brightness = brightness + fadeAmount;
