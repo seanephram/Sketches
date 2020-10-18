@@ -1,41 +1,48 @@
 #include "FastLED.h"
 #define LED_TYPE WS2812B
 
-#define NUM_LEDS_A 3
-#define NUM_LEDS_B 3
+#define NUM_LEDS 3
 #define DATA_PIN_A 8
 #define DATA_PIN_B 9
 
 #define BRIGHTNESS 50
 
-CRGB ledsA[NUM_LEDS_A];
-CRGB ledsB[NUM_LEDS_B];
+CRGB ledsA[NUM_LEDS];
+CRGB ledsB[NUM_LEDS];
 
 uint8_t bpm = 120;
 
-int fadeAmount = 10;  // Set the amount to fade I usually do 5, 10, 15, 20, 25 etc even up to 255.
-int brightness = 20;
+int fadeAmount = 1;  // Set the amount to fade I usually do 5, 10, 15, 20, 25 etc even up to 255.
+int brightness = 10;
 
 void setup()
 {
-  FastLED.addLeds<NEOPIXEL, DATA_PIN_A>(ledsA, NUM_LEDS_A);
-  FastLED.addLeds<NEOPIXEL, DATA_PIN_B>(ledsB, NUM_LEDS_B);
+  FastLED.addLeds<NEOPIXEL, DATA_PIN_A>(ledsA, NUM_LEDS);
+  FastLED.addLeds<NEOPIXEL, DATA_PIN_B>(ledsB, NUM_LEDS);
 }
 
 void loop()
 
   {
-    for (int i = 0; i < NUM_LEDS_A; i++ )
+    for (int i = 0; i < NUM_LEDS; i++ )
     {
-      ledsA[i].setRGB(0, 255, 255);
-      brightness = beatsin8(bpm, 0, 255);
+        FastLED.clear();
+      ledsA[i] = CRGB::Blue;
       ledsA[i].fadeLightBy(brightness);
+        FastLED.show();
+        FastLED.clear();
+      ledsB[i] = CRGB::Green;
+      ledsB[i].fadeLightBy(brightness);
+        FastLED.show();
+        FastLED.clear();
+      brightness = beatsin8(bpm, 0, 255);
+     
     }
-    FastLED.show();
-    brightness = brightness + fadeAmount;
+    //FastLED.show();
+   /* brightness = brightness + fadeAmount;
       // reverse the direction of fading at the ends of the fade:
     if (brightness == 0 || brightness == 255)
       {
         fadeAmount = -fadeAmount ;
-      }
+      }*/
 }
