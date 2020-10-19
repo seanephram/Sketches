@@ -26,6 +26,7 @@ void loop()
   {
     for (int i = 0; i < NUM_LEDS; i++ )
     {
+        brightness = beatsin8(bpm, 0, 255);
         FastLED.clear();
       ledsA[i] = CRGB::Blue;
       ledsA[i].fadeLightBy(brightness);
@@ -35,8 +36,11 @@ void loop()
       ledsB[i].fadeLightBy(brightness);
         FastLED.show();
         FastLED.clear();
-      brightness = beatsin8(bpm, 0, 255);
-     
+      ledsA[i] = CRGB::White;
+      ledsB[i] = CRGB::White;
+      ledsA[i].fadeLightBy(brightness);
+      ledsB[i].fadeLightBy(brightness);
+        FastLED.show();
     }
     //FastLED.show();
    /* brightness = brightness + fadeAmount;
